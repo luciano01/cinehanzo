@@ -1,3 +1,3 @@
-export 'pages/pages.dart';
-export 'state/state.dart';
+export 'screens/screens.dart';
+export 'states/states.dart';
 export 'widgets/widgets.dart';
