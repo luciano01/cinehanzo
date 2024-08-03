@@ -1,36 +1,20 @@
 import 'package:cinehanzo/core/ui/ui.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../../core/core.dart';
+import '../../presentation.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final loginState = Modular.get<LoginState>();
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        surfaceTintColor: Colors.transparent,
-        toolbarHeight: 130,
-        centerTitle: true,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 10),
-          child: Stack(
-            children: [
-              Text(
-                AppConstants.labelCine,
-                style: AppStyles.labelCine.copyWith(fontSize: 14),
-              ),
-              Image.asset(
-                AppImages.hanzoLogo,
-                width: 120,
-              ),
-            ],
-          ),
-        ),
-      ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -69,6 +53,26 @@ class LoginScreen extends StatelessWidget {
           vertical: 16,
         ),
         children: [
+          SizedBox(
+            height: 160,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  children: [
+                    Text(
+                      AppConstants.labelCine,
+                      style: AppStyles.labelCine.copyWith(fontSize: 14),
+                    ),
+                    Image.asset(
+                      AppImages.hanzoLogo,
+                      width: 120,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
           const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -242,7 +246,12 @@ class LoginScreen extends StatelessWidget {
                 AppColors.white,
               ),
             ),
-            onPressed: () {},
+            onPressed: () {
+              loginState.signInWithEmailAndPassword(
+                email: "luciano@email.com",
+                password: "123456",
+              );
+            },
             child: const Text(AppConstants.labelEnter),
           ),
           Padding(

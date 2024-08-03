@@ -1,9 +1,12 @@
-import 'package:cinehanzo/core/core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class LaunchState extends ChangeNotifier {
-  LaunchState() {
+import '../../../../core/core.dart';
+import '../../presentation.dart';
+
+class LaunchState {
+  final AuthState _authState;
+
+  LaunchState({required AuthState authState}) : _authState = authState {
     _checkIfisFirstAccess();
   }
 
@@ -12,7 +15,7 @@ class LaunchState extends ChangeNotifier {
   }
 
   void _checkIfisFirstAccess() async {
-    await Future.delayed(const Duration(seconds: 3)).then((_) async {
+    await Future.delayed(const Duration(seconds: 1)).then((_) async {
       final result = await _getFirstTimeAccess();
 
       if (result) {
