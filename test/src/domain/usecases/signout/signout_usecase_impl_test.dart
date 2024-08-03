@@ -6,11 +6,11 @@ class MockSignOutRepository extends Mock implements SignOutRepository {}
 
 void main() {
   late MockSignOutRepository mockSignOutRepository;
-  late SignOutUsecaseImpl signOutUsecaseImpl;
+  late SignOutUseCaseImpl signOutUsecaseImpl;
 
   setUp(() {
     mockSignOutRepository = MockSignOutRepository();
-    signOutUsecaseImpl = SignOutUsecaseImpl(
+    signOutUsecaseImpl = SignOutUseCaseImpl(
       signOutRepository: mockSignOutRepository,
     );
   });

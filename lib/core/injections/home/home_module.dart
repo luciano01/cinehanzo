@@ -7,7 +7,9 @@ class HomeModule extends Module {
   @override
   void binds(i) {
     i.add<HomeState>(
-      () => HomeState(),
+      () => HomeState(
+        authState: i.get<AuthState>(),
+      ),
     );
   }
 

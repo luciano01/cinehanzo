@@ -20,9 +20,34 @@ class AuthModule extends Module {
       ),
     );
 
+    i.add<CurrentUserDataSource>(
+      () => CurrentUserDataSourceImpl(
+        firebaseAuth: i.get<FirebaseAuth>(),
+      ),
+    );
+
+    i.add<SignOutDataSource>(
+      () => SignOutDataSourceImpl(
+        firebaseAuth: i.get<FirebaseAuth>(),
+        googleSignIn: i.get<GoogleSignIn>(),
+      ),
+    );
+
     i.add<SignInRepository>(
       () => SignInRepositoryImpl(
         signInDataSource: i.get<SignInDataSource>(),
+      ),
+    );
+
+    i.add<SignOutRepository>(
+      () => SignOutRepositoryImpl(
+        signOutDataSource: i.get<SignOutDataSource>(),
+      ),
+    );
+
+    i.add<CurrentUserRepository>(
+      () => CurrentUserRepositoryImpl(
+        currentUserDataSource: i.get<CurrentUserDataSource>(),
       ),
     );
 
@@ -31,13 +56,27 @@ class AuthModule extends Module {
         signInRepository: i.get<SignInRepository>(),
       ),
     );
+
+    i.add<SignOutUseCase>(
+      () => SignOutUseCaseImpl(
+        signOutRepository: i.get<SignOutRepository>(),
+      ),
+    );
+
+    i.add<CurrentUserUseCase>(
+      () => CurrentUserUseCaseImpl(
+        currentUserRepository: i.get<CurrentUserRepository>(),
+      ),
+    );
   }
 
   @override
   void exportedBinds(Injector i) {
     i.add<AuthState>(
       () => AuthState(
+        currentUserUseCase: i.get<CurrentUserUseCase>(),
         signInUseCase: i.get<SignInUseCase>(),
+        signOutUsecase: i.get<SignOutUseCase>(),
       ),
     );
   }

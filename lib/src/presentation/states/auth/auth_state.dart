@@ -4,22 +4,25 @@ import 'package:flutter/material.dart';
 import '../../../domain/domain.dart';
 
 class AuthState extends ChangeNotifier {
-  // final CurrentUserUseCase _currentUserUseCase;
+  final CurrentUserUseCase _currentUserUseCase;
   final SignInUseCase _signInUseCase;
+  final SignOutUseCase _signOutUsecase;
 
   AuthState({
-    // required CurrentUserUseCase currentUserUseCase,
+    required CurrentUserUseCase currentUserUseCase,
     required SignInUseCase signInUseCase,
-  }) : //_currentUserUseCase = currentUserUseCase,
-        _signInUseCase = signInUseCase {
-    // _currentUserUseCase.currentUser().then((setUser));
+    required SignOutUseCase signOutUsecase,
+  })  : _currentUserUseCase = currentUserUseCase,
+        _signInUseCase = signInUseCase,
+        _signOutUsecase = signOutUsecase {
+    _currentUserUseCase.currentUser().then((setUser));
   }
 
   User? user;
 
   bool isLogged = false;
 
-  setUser(User? value) {
+  void setUser(User? value) {
     user = value;
     isLogged = value != null;
     notifyListeners();
@@ -43,5 +46,19 @@ class AuthState extends ChangeNotifier {
     user = await _signInUseCase.googleSignIn();
     notifyListeners();
     return user;
+  }
+
+  /// Disconnect user from Firebase Auth.
+  Future signOut() async {
+    await _signOutUsecase.signOut().whenComplete(() {
+      user = null;
+    });
+  }
+
+  /// Disconnect user from GoogleSignIn.
+  Future disconnect() async {
+    await _signOutUsecase.disconnect().whenComplete(() {
+      user = null;
+    });
   }
 }

@@ -1,6 +1,6 @@
 import '../../domain.dart';
 
-abstract class SignOutUsecase {
+abstract class SignOutUseCase {
   /// Disconnect user from Firebase Auth.
   Future<void> signOut();
 
@@ -8,10 +8,10 @@ abstract class SignOutUsecase {
   Future<void> disconnect();
 }
 
-class SignOutUsecaseImpl implements SignOutUsecase {
+class SignOutUseCaseImpl implements SignOutUseCase {
   final SignOutRepository _signOutRepository;
 
-  SignOutUsecaseImpl({required SignOutRepository signOutRepository})
+  SignOutUseCaseImpl({required SignOutRepository signOutRepository})
       : _signOutRepository = signOutRepository;
 
   @override

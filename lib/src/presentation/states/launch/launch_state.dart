@@ -15,13 +15,23 @@ class LaunchState {
   }
 
   void _checkIfisFirstAccess() async {
-    await Future.delayed(const Duration(seconds: 1)).then((_) async {
+    await Future.delayed(const Duration(seconds: 2)).then((_) async {
       final result = await _getFirstTimeAccess();
 
       if (result) {
-        Modular.to.pushReplacementNamed('/login');
+        checkIfUserIsLogged();
       } else {
         Modular.to.pushReplacementNamed('/onBoarding');
+      }
+    });
+  }
+
+  void checkIfUserIsLogged() {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      if (_authState.isLogged) {
+        Modular.to.pushReplacementNamed('/home');
+      } else {
+        Modular.to.pushReplacementNamed('/login');
       }
     });
   }
