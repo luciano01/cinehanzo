@@ -19,6 +19,12 @@ class AppConstants {
   static const String labelContinueGoogle = "Continuar com Google";
   static const String labelEnter = "Entrar";
   static const String labelNotHaveAccount = "Não possui uma conta?";
+  static const String labelSignUp = "Cadastre-se!";
+  static const String labelWelcomeBack = "Bem-vindo de volta!";
+  static const String labelWelcomeBackMessage =
+      "Entre com suas credenciais para acessar sua conta.";
+  static const String labelReadAndAgree =
+      "Eu li e concordo com os Termos de Serviço e Políticas de Privacidade.";
 
   /// KEYS
   static const String keyFirstAccess = "firstAccess";
