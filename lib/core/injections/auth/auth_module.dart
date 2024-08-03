@@ -33,6 +33,12 @@ class AuthModule extends Module {
       ),
     );
 
+    i.add<SignUpDataSource>(
+      () => SignUpDataSourceImpl(
+        firebaseAuth: i.get<FirebaseAuth>(),
+      ),
+    );
+
     i.add<SignInRepository>(
       () => SignInRepositoryImpl(
         signInDataSource: i.get<SignInDataSource>(),
@@ -48,6 +54,12 @@ class AuthModule extends Module {
     i.add<CurrentUserRepository>(
       () => CurrentUserRepositoryImpl(
         currentUserDataSource: i.get<CurrentUserDataSource>(),
+      ),
+    );
+
+    i.add<SignUpRepository>(
+      () => SignUpRepositoryImpl(
+        signUpDataSource: i.get<SignUpDataSource>(),
       ),
     );
 
@@ -68,6 +80,12 @@ class AuthModule extends Module {
         currentUserRepository: i.get<CurrentUserRepository>(),
       ),
     );
+
+    i.add<SignUpUsecase>(
+      () => SignUpUsecaseImpl(
+        signUpRepository: i.get<SignUpRepository>(),
+      ),
+    );
   }
 
   @override
@@ -77,6 +95,7 @@ class AuthModule extends Module {
         currentUserUseCase: i.get<CurrentUserUseCase>(),
         signInUseCase: i.get<SignInUseCase>(),
         signOutUsecase: i.get<SignOutUseCase>(),
+        signUpUsecase: i.get<SignUpUsecase>(),
       ),
     );
   }

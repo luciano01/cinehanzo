@@ -7,14 +7,17 @@ class AuthState extends ChangeNotifier {
   final CurrentUserUseCase _currentUserUseCase;
   final SignInUseCase _signInUseCase;
   final SignOutUseCase _signOutUsecase;
+  final SignUpUsecase _signUpUsecase;
 
   AuthState({
     required CurrentUserUseCase currentUserUseCase,
     required SignInUseCase signInUseCase,
     required SignOutUseCase signOutUsecase,
+    required SignUpUsecase signUpUsecase,
   })  : _currentUserUseCase = currentUserUseCase,
         _signInUseCase = signInUseCase,
-        _signOutUsecase = signOutUsecase {
+        _signOutUsecase = signOutUsecase,
+        _signUpUsecase = signUpUsecase {
     _currentUserUseCase.currentUser().then((setUser));
   }
 
@@ -60,5 +63,18 @@ class AuthState extends ChangeNotifier {
     await _signOutUsecase.disconnect().whenComplete(() {
       user = null;
     });
+  }
+
+  /// Create an Account by Email and Password, and return a Firebase User.
+  Future<User?> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
+    user = await _signUpUsecase.createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    return user;
   }
 }

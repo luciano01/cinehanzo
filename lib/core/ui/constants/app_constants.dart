@@ -16,8 +16,10 @@ class AppConstants {
 
   static const String labelEmail = "Email";
   static const String labelPassword = "Senha";
+  static const String labelRepeatPassword = "Repetir Senha";
   static const String labelContinueGoogle = "Continuar com Google";
   static const String labelEnter = "Entrar";
+  static const String labelCreateAccount = "Criar conta";
   static const String labelNotHaveAccount = "Não possui uma conta?";
   static const String labelSignUp = "Cadastre-se!";
   static const String labelWelcomeBack = "Bem-vindo de volta!";
@@ -25,6 +27,9 @@ class AppConstants {
       "Entre com suas credenciais para acessar sua conta.";
   static const String labelReadAndAgree =
       "Eu li e concordo com os Termos de Serviço e Políticas de Privacidade.";
+  static const String labelCreateYourAccount = "Crie sua conta";
+  static const String labelCreateYourAccountMessage =
+      "Para começar, preencha os campos abaixo para criar sua conta. É rápido e fácil!";
 
   /// KEYS
   static const String keyFirstAccess = "firstAccess";

@@ -13,8 +13,7 @@ abstract class SignUpDataSource {
 class SignUpDataSourceImpl implements SignUpDataSource {
   final FirebaseAuth _firebaseAuth;
 
-  SignUpDataSourceImpl({required FirebaseAuth firebaseAuth})
-      : _firebaseAuth = firebaseAuth;
+  SignUpDataSourceImpl({required FirebaseAuth firebaseAuth}) : _firebaseAuth = firebaseAuth;
 
   @override
   Future<User?> createUserWithEmailAndPassword({

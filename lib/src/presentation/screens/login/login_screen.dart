@@ -87,7 +87,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                Modular.to.pushNamed("/signup");
+              },
               child: const Text(
                 AppConstants.labelSignUp,
               ),

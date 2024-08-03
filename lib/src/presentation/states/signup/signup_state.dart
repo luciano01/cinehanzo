@@ -4,13 +4,14 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../core/core.dart';
 import '../../presentation.dart';
 
-class LoginState extends ChangeNotifier {
+class SignUpState extends ChangeNotifier {
   final AuthState _authState;
 
-  LoginState({required AuthState authState}) : _authState = authState;
+  SignUpState({required AuthState authState}) : _authState = authState;
 
   String email = "";
   String password = "";
+  String repeatPassword = "";
   bool isShowPassword = false;
   bool isAgree = false;
   ValueNotifier<String> errorMessage = ValueNotifier<String>("");
@@ -26,6 +27,11 @@ class LoginState extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateRepeatPassword(String value) {
+    repeatPassword = value;
+    notifyListeners();
+  }
+
   void updateIsShowPassword() {
     isShowPassword = !isShowPassword;
     notifyListeners();
@@ -37,7 +43,10 @@ class LoginState extends ChangeNotifier {
   }
 
   bool isValid() {
-    return validateEmail() == null && validatePassword() == null && isAgree;
+    return validateEmail() == null &&
+        validatePassword() == null &&
+        validateRepeatPassword() == null &&
+        isAgree;
   }
 
   String? validateEmail() {
@@ -67,31 +76,30 @@ class LoginState extends ChangeNotifier {
     return null;
   }
 
-  Future<void> signInWithEmailAndPassword() async {
-    isLoading.value = true;
-    Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
-      try {
-        await _authState.signInWithEmailAndPassword(email: email, password: password).then((user) {
-          if (user != null) isLoading.value = false;
-          Modular.to.pushReplacementNamed('/home');
-        });
-      } on ServerException catch (error) {
-        errorMessage.value = error.message;
-      } finally {
-        errorMessage.value = "";
-        isLoading.value = false;
-      }
-    });
-    notifyListeners();
+  String? validateRepeatPassword() {
+    if (!hasLowerCase.hasMatch(password)) {
+      return "Deve conter pelo menos uma letra minúscula.";
+    } else if (!hasUpperCase.hasMatch(password)) {
+      return "Deve conter pelo menos uma letra maiúscula.";
+    } else if (!hasNumber.hasMatch(password)) {
+      return "Deve conter pelo menos um número.";
+    } else if (!isValidLengthAndNoSpecialChars.hasMatch(password)) {
+      return "Deve conter acima de 8 caracteres e não pode conter caracteres especiais.";
+    } else if (password != repeatPassword) {
+      return "As senhas não combinam.";
+    }
+    return null;
   }
 
-  Future<void> signWithGoogleLogin() async {
+  Future<void> createUserWithEmailAndPassword() async {
     isLoading.value = true;
     Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
       try {
-        await _authState.signInWithgoogleSignIn().then((user) async {
+        await _authState
+            .createUserWithEmailAndPassword(email: email, password: password)
+            .then((user) {
           if (user != null) isLoading.value = false;
-          Modular.to.pushReplacementNamed('/home');
+          Modular.to.pop();
         });
       } on ServerException catch (error) {
         errorMessage.value = error.message;
