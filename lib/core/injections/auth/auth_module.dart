@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../src/data/data.dart';
-import '../../../src/domain/domain.dart';
-import '../../../src/presentation/presentation.dart';
+import '../../../src/authentication/data/data.dart';
+import '../../../src/authentication/domain/domain.dart';
+import '../../../src/authentication/presentation/presentation.dart';
 
 class AuthModule extends Module {
   @override

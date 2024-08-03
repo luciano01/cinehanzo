@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../app_module.dart';
-import '../../../src/presentation/presentation.dart';
+import '../../../src/authentication/presentation/presentation.dart';
 
 class HomeModule extends Module {
   @override

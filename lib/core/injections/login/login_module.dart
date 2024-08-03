@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../src/presentation/presentation.dart';
+import '../../../src/authentication/presentation/presentation.dart';
 import '../../core.dart';
 
 class LoginModule extends Module {

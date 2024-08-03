@@ -1,6 +1,7 @@
-import 'package:cinehanzo/src/domain/domain.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:cinehanzo/src/authentication/domain/domain.dart';
 
 class MockSignOutRepository extends Mock implements SignOutRepository {}
 

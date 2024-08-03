@@ -1,7 +1,8 @@
-import 'package:cinehanzo/src/domain/domain.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:cinehanzo/src/authentication/domain/domain.dart';
 
 class MockCurrentUserRepository extends Mock implements CurrentUserRepository {}
 

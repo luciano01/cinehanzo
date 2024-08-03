@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../../core/core.dart';
+import '../../../../../core/core.dart';
 import '../../presentation.dart';
 
 class HomeState extends ChangeNotifier {

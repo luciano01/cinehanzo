@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/core.dart';
+import '../../../../../core/core.dart';
 
 abstract class SignUpDataSource {
   /// Create an Account by Email and Password, and return a Firebase User.

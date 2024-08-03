@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:cinehanzo/src/data/data.dart';
+import 'package:cinehanzo/src/authentication/data/data.dart';
 
 class MockSignInDatasource extends Mock implements SignInDataSource {}
 

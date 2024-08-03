@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../../../core/core.dart';
+import '../../../../../core/core.dart';
 
 abstract class SignInDataSource {
   /// Sign In by Email and return an User
