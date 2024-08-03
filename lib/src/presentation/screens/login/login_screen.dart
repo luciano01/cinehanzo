@@ -354,7 +354,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       AppColors.black,
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    loginState.signWithGoogleLogin();
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

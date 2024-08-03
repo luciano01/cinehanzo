@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../core/core.dart';
 import '../../presentation.dart';
@@ -72,7 +73,7 @@ class LoginState extends ChangeNotifier {
       try {
         await _authState.signInWithEmailAndPassword(email: email, password: password).then((user) {
           if (user != null) isLoading.value = false;
-          // Modular.to.pushReplacementNamed('/home');
+          Modular.to.pushReplacementNamed('/home');
         });
       } on ServerException catch (error) {
         errorMessage.value = error.message;
@@ -82,5 +83,22 @@ class LoginState extends ChangeNotifier {
       }
     });
     notifyListeners();
+  }
+
+  Future<void> signWithGoogleLogin() async {
+    isLoading.value = true;
+    Future.delayed(const Duration(seconds: 3)).whenComplete(() async {
+      try {
+        await _authState.signInWithgoogleSignIn().then((user) async {
+          if (user != null) isLoading.value = false;
+          Modular.to.pushReplacementNamed('/home');
+        });
+      } on ServerException catch (error) {
+        errorMessage.value = error.message;
+      } finally {
+        errorMessage.value = "";
+        isLoading.value = false;
+      }
+    });
   }
 }

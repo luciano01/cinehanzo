@@ -13,5 +13,6 @@ class AppModule extends Module {
     r.module('/', module: LaunchModule(), transition: TransitionType.fadeIn);
     r.module('/onBoarding', module: OnBoardingModule(), transition: TransitionType.rightToLeft);
     r.module('/login', module: LoginModule(), transition: TransitionType.rightToLeft);
+    r.module('/home', module: HomeModule(), transition: TransitionType.rightToLeft);
   }
 }
