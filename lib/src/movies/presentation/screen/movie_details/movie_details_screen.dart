@@ -50,7 +50,9 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
       slivers: [
         SliverAppBar(
           expandedHeight: 500,
+          leadingWidth: 70,
           leading: Container(
+            margin: const EdgeInsets.only(left: 16),
             decoration: BoxDecoration(
               color: AppColors.greyLight,
               borderRadius: BorderRadius.circular(8),
@@ -113,7 +115,7 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                               Icons.timer_outlined,
                               color: Colors.black,
                             ),
-                            Text(movieDetailsState.movie.runtime!.toString()),
+                            Text(convertMinutesToHoursMinutes(movieDetailsState.movie.runtime!)),
                           ],
                         ),
                         const SizedBox(width: 10),

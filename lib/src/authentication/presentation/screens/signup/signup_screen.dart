@@ -74,7 +74,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        top: 16,
+                        top: 36,
                       ),
                       child: Container(
                         decoration: BoxDecoration(
@@ -217,9 +217,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           width: 2,
                         ),
                       ),
+                      suffixIcon: IconButton(
+                          onPressed: () {
+                            signUpState.updateIsShowPassword();
+                          },
+                          icon: Icon(
+                            !signUpState.isShowPassword
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined,
+                          )),
                       errorText:
                           signUpState.password.isNotEmpty ? signUpState.validatePassword() : null,
                     ),
+                    obscureText: !signUpState.isShowPassword,
                     onChanged: signUpState.updatePassword,
                   ),
                 ),
@@ -258,10 +268,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         width: 2,
                       ),
                     ),
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          signUpState.updateIsShowPassword();
+                        },
+                        icon: Icon(
+                          !signUpState.isShowPassword
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
+                        )),
                     errorText: signUpState.repeatPassword.isNotEmpty
                         ? signUpState.validateRepeatPassword()
                         : null,
                   ),
+                  obscureText: !signUpState.isShowPassword,
                   onChanged: signUpState.updateRepeatPassword,
                 ),
                 Padding(

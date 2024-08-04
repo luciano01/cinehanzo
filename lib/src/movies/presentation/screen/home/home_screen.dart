@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/core.dart';
@@ -59,25 +58,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : const AssetImage(AppImages.noUserPhoto) as ImageProvider<Object>,
                       ),
                       const SizedBox(width: 16),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            homeState.userName ?? 'User',
-                            style: const TextStyle(
-                              color: AppColors.black,
-                              fontSize: 16,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              homeState.userName ?? 'User',
+                              style: const TextStyle(
+                                color: AppColors.black,
+                                fontSize: 14,
+                              ),
                             ),
-                          ),
-                          Text(
-                            homeState.userEmail ?? '',
-                            style: const TextStyle(
-                              color: AppColors.black,
-                              fontSize: 14,
+                            Text(
+                              homeState.userEmail ?? '',
+                              style: const TextStyle(
+                                color: AppColors.black,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
