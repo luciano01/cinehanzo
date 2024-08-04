@@ -113,14 +113,18 @@ class _HomeScreenState extends State<HomeScreen> {
         final movieEntity = homeState.resultMoviesEntity.results[index];
 
         if (index < homeState.resultMoviesEntity.results.length) {
-          return Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              image: DecorationImage(
-                image: NetworkImage(
+          return GestureDetector(
+            onTap: () {
+              Modular.to.pushNamed("/movieDetails", arguments: movieEntity.id);
+            },
+            child: Hero(
+              tag: 'moviePoster_${movieEntity.id}',
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.network(
                   'https://image.tmdb.org/t/p/w500${movieEntity.posterPath}',
+                  fit: BoxFit.cover,
                 ),
-                fit: BoxFit.fill,
               ),
             ),
           );

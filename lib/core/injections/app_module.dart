@@ -15,5 +15,6 @@ class AppModule extends Module {
     r.module('/login', module: LoginModule(), transition: TransitionType.rightToLeft);
     r.module('/home', module: HomeModule(), transition: TransitionType.rightToLeft);
     r.module('/signup', module: SignUpModule(), transition: TransitionType.rightToLeft);
+    r.module('/movieDetails', module: MovieDetailsModule(), transition: TransitionType.rightToLeft);
   }
 }

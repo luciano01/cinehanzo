@@ -3,5 +3,6 @@ export 'auth/auth.dart';
 export 'home/home.dart';
 export 'launch/launch.dart';
 export 'login/login.dart';
+export 'movie_details/movie_details.dart';
 export 'onboarding/onboarding.dart';
 export 'signup/signup.dart';
