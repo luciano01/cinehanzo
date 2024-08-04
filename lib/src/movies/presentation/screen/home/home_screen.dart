@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/core.dart';
@@ -41,37 +42,104 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (_, __) {
         return Scaffold(
           backgroundColor: AppColors.white,
-          appBar: AppBar(
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+          endDrawer: Drawer(
+            backgroundColor: AppColors.white,
+            child: Column(
               children: [
-                Stack(
-                  children: [
-                    Text(
-                      AppConstants.labelCine,
-                      style: AppStyles.labelCine.copyWith(fontSize: 10),
-                    ),
-                    Image.asset(
-                      AppImages.hanzoLogo,
-                      width: 80,
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 35,
-                  height: 35,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(50),
-                    ),
-                    image: DecorationImage(
-                      image: homeState.userPhotoURL != null && homeState.userPhotoURL!.isNotEmpty
-                          ? NetworkImage(homeState.userPhotoURL!)
-                          : const AssetImage(AppImages.noUserPhoto) as ImageProvider<Object>,
-                      fit: BoxFit.cover,
-                    ),
+                DrawerHeader(
+                  decoration: const BoxDecoration(color: AppColors.white),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        radius: 50,
+                        backgroundColor: AppColors.white,
+                        backgroundImage:
+                            homeState.userPhotoURL != null && homeState.userPhotoURL!.isNotEmpty
+                                ? NetworkImage(homeState.userPhotoURL!)
+                                : const AssetImage(AppImages.noUserPhoto) as ImageProvider<Object>,
+                      ),
+                      const SizedBox(width: 16),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            homeState.userName ?? 'User',
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 16,
+                            ),
+                          ),
+                          Text(
+                            homeState.userEmail ?? '',
+                            style: const TextStyle(
+                              color: AppColors.black,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
+                ),
+                const Expanded(
+                  child: SizedBox.shrink(),
+                ),
+                Visibility(
+                  visible: !homeState.isLoadingSignOut,
+                  replacement: const LinearProgressIndicator(),
+                  child: ListTile(
+                    title: const Text('Sair'),
+                    leading: const Icon(
+                      Icons.exit_to_app,
+                      color: Colors.red,
+                    ),
+                    onTap: () {
+                      homeState.signOut();
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          appBar: AppBar(
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: Builder(builder: (context) {
+                  return GestureDetector(
+                    onTap: () {
+                      Scaffold.of(context).openEndDrawer();
+                    },
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      decoration: BoxDecoration(
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(50),
+                        ),
+                        image: DecorationImage(
+                          image: homeState.userPhotoURL != null &&
+                                  homeState.userPhotoURL!.isNotEmpty
+                              ? NetworkImage(homeState.userPhotoURL!)
+                              : const AssetImage(AppImages.noUserPhoto) as ImageProvider<Object>,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ],
+            title: Stack(
+              children: [
+                Text(
+                  AppConstants.labelCine,
+                  style: AppStyles.labelCine.copyWith(fontSize: 10),
+                ),
+                Image.asset(
+                  AppImages.hanzoLogo,
+                  width: 80,
                 ),
               ],
             ),

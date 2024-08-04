@@ -24,6 +24,8 @@ class HomeState extends ChangeNotifier {
 
   bool isLoading = false;
 
+  bool isLoadingSignOut = false;
+
   ResultMoviesEntity resultMoviesEntity = ResultMoviesEntity.empty();
   List<MovieEntity> get movies => resultMoviesEntity.results;
 
@@ -31,6 +33,8 @@ class HomeState extends ChangeNotifier {
   int currentPage = 1;
 
   String? get userPhotoURL => _authState.user?.photoURL;
+  String? get userEmail => _authState.user?.email;
+  String? get userName => _authState.user?.displayName;
 
   void updateScreenIndex(int value) {
     currentScreenIndex = value;
@@ -53,14 +57,16 @@ class HomeState extends ChangeNotifier {
   }
 
   Future<void> signOut() async {
-    isLoading = true;
+    isLoadingSignOut = true;
+    notifyListeners();
     Future.delayed(const Duration(seconds: 3)).then((_) async {
       try {
         await _authState.signOut();
         await _authState.disconnect();
       } on ServerException catch (_) {}
     }).whenComplete(() {
-      isLoading = false;
+      isLoadingSignOut = false;
+      notifyListeners();
       Modular.to.pushReplacementNamed("/login");
     });
   }
