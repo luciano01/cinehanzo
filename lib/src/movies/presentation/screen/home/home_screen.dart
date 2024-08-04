@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../../../../core/core.dart';
 import '../../state/home/home.dart';
-import 'home_movies_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,54 +12,128 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final homeStore = Modular.get<HomeState>();
+  final homeState = Modular.get<HomeState>();
+
+  void _scrollScreen() {
+    if (homeState.scrollController.position.pixels ==
+        homeState.scrollController.position.maxScrollExtent) {
+      homeState.getMovies(page: homeState.currentPage + 1);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    homeState.scrollController.addListener(_scrollScreen);
+    homeState.getMovies(page: 1);
+  }
+
+  @override
+  void dispose() {
+    homeState.scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: homeStore,
+      listenable: homeState,
       builder: (_, __) {
         return Scaffold(
           backgroundColor: AppColors.white,
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: homeStore.currentScreenIndex,
-            onTap: (value) => homeStore.updateScreenIndex(value),
-            backgroundColor: AppColors.white,
-            elevation: 0,
-            showUnselectedLabels: false,
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.movie_outlined),
-                activeIcon: Icon(Icons.movie),
-                label: 'Filmes',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                activeIcon: Icon(Icons.search),
-                label: 'Pesquisar',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_circle_outlined),
-                activeIcon: Icon(Icons.account_circle),
-                label: 'Perfil',
-              ),
-            ],
+          appBar: AppBar(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Stack(
+                  children: [
+                    Text(
+                      AppConstants.labelCine,
+                      style: AppStyles.labelCine.copyWith(fontSize: 10),
+                    ),
+                    Image.asset(
+                      AppImages.hanzoLogo,
+                      width: 80,
+                    ),
+                  ],
+                ),
+                Container(
+                  width: 35,
+                  height: 35,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(50),
+                    ),
+                    image: DecorationImage(
+                      image: homeState.userPhotoURL != null && homeState.userPhotoURL!.isNotEmpty
+                          ? NetworkImage(homeState.userPhotoURL!)
+                          : const AssetImage(AppImages.noUserPhoto) as ImageProvider<Object>,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
-          body: PageView(
-            physics: const NeverScrollableScrollPhysics(),
-            controller: homeStore.pageController,
-            onPageChanged: (value) => homeStore.updateScreenIndex(value),
-            children: const [
-              HomeMoviesScreen(),
-              Center(
-                child: Text('Pesquisar'),
-              ),
-              Center(
-                child: Text('Perfil'),
+          body: Column(
+            children: [
+              Flexible(
+                child: _buildMovieContent(),
               ),
             ],
           ),
         );
+      },
+    );
+  }
+
+  Widget _buildMovieContent() {
+    if (homeState.isLoading) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    return GridView.builder(
+      controller: homeState.scrollController,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        mainAxisSpacing: 10,
+        crossAxisSpacing: 10,
+        childAspectRatio: 0.70,
+      ),
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 16,
+      ),
+      itemCount: homeState.resultMoviesEntity.results.length,
+      itemBuilder: (context, index) {
+        final movieEntity = homeState.resultMoviesEntity.results[index];
+
+        if (index < homeState.resultMoviesEntity.results.length) {
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              image: DecorationImage(
+                image: NetworkImage(
+                  'https://image.tmdb.org/t/p/w500${movieEntity.posterPath}',
+                ),
+                fit: BoxFit.fill,
+              ),
+            ),
+          );
+        } else {
+          return homeState.isLoading
+              ? const Center(
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: CircularProgressIndicator(),
+                  ),
+                )
+              : const SizedBox.shrink();
+        }
       },
     );
   }

@@ -25,7 +25,6 @@ class HomeState extends ChangeNotifier {
   bool isLoading = false;
 
   ResultMoviesEntity resultMoviesEntity = ResultMoviesEntity.empty();
-
   List<MovieEntity> get movies => resultMoviesEntity.results;
 
   int currentScreenIndex = 0;

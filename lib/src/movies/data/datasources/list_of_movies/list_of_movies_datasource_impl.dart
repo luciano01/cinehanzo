@@ -27,7 +27,6 @@ class ListOfMoviesDataSourceImpl implements ListOfMoviesDataSource {
 
     try {
       final response = await _dio.get('/movie/popular?page=$page');
-      // final response = await _dio.get('/movie/popular?page=1');
 
       if (response.statusCode == 200) {
         final data = response.data;
