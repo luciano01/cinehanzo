@@ -1,7 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
-import '../../../app_module.dart';
 import '../../../src/authentication/presentation/presentation.dart';
+import '../../core.dart';
 
 class LaunchModule extends Module {
   @override

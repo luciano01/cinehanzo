@@ -1,3 +1,4 @@
+export 'app_module.dart';
 export 'auth/auth.dart';
 export 'home/home.dart';
 export 'launch/launch.dart';

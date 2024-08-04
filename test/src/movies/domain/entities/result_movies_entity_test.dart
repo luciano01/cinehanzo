@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'package:cinehanzo/src/authentication/domain/domain.dart';
+import 'package:cinehanzo/src/movies/domain/domain.dart';
 
 class MockResultMoviesEntity extends Mock implements ResultMoviesEntity {}
 
