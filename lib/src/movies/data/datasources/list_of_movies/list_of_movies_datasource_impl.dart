@@ -4,7 +4,7 @@ import '../../../domain/domain.dart';
 
 abstract class ListOfMoviesDataSource {
   /// Return a List of ResultMovies Entity.
-  Future<ResultMoviesEntity> getMovies();
+  Future<ResultMoviesEntity> getMovies({required int page});
 }
 
 class ListOfMoviesDataSourceImpl implements ListOfMoviesDataSource {
@@ -13,7 +13,7 @@ class ListOfMoviesDataSourceImpl implements ListOfMoviesDataSource {
   ListOfMoviesDataSourceImpl({required Dio dio}) : _dio = dio;
 
   @override
-  Future<ResultMoviesEntity> getMovies() async {
+  Future<ResultMoviesEntity> getMovies({required int page}) async {
     final options = BaseOptions(
       baseUrl: "https://api.themoviedb.org/3",
       contentType: 'application/json;charset=utf-8',
@@ -26,7 +26,8 @@ class ListOfMoviesDataSourceImpl implements ListOfMoviesDataSource {
     _dio.options = options;
 
     try {
-      final response = await _dio.get('/movie/popular?page=1');
+      final response = await _dio.get('/movie/popular?page=$page');
+      // final response = await _dio.get('/movie/popular?page=1');
 
       if (response.statusCode == 200) {
         final data = response.data;

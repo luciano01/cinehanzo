@@ -5,4 +5,5 @@ class AppImages {
   static const imageSplashTwo = '$_basePath/illustration_two.svg';
   static const imageSplashThree = '$_basePath/illustration_three.svg';
   static const googleG = '$_basePath/googleg.svg';
+  static const noUserPhoto = '$_basePath/no_user_photo.png';
 }

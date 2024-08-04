@@ -21,12 +21,12 @@ void main() {
   });
 
   test('Should return an object of type ResultMoviesEntity.', () async {
-    when(() => mockListOfMoviesRepository.getMovies())
+    when(() => mockListOfMoviesRepository.getMovies(page: 1))
         .thenAnswer((_) async => mockResultMoviesEntity);
 
-    final result = await listOfMoviesUseCaseImpl.getMovies();
+    final result = await listOfMoviesUseCaseImpl.getMovies(page: 1);
 
     expect(result, mockResultMoviesEntity);
-    verify(() => mockListOfMoviesRepository.getMovies());
+    verify(() => mockListOfMoviesRepository.getMovies(page: 1));
   });
 }

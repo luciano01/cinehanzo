@@ -20,6 +20,13 @@ class ResultMoviesEntity {
         totalResults: json["total_results"],
       );
 
+  factory ResultMoviesEntity.empty() => ResultMoviesEntity(
+        page: 0,
+        results: [],
+        totalPages: 0,
+        totalResults: 0,
+      );
+
   Map<String, dynamic> toJson() => {
         "page": page,
         "results": List<dynamic>.from(results.map((x) => x.toJson())),

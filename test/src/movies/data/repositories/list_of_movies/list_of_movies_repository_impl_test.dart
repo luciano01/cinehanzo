@@ -22,12 +22,12 @@ void main() {
   });
 
   test('Should return a object of ResultMoviesEntity from Datasource.', () async {
-    when(() => mockListOfMoviesDataSource.getMovies())
+    when(() => mockListOfMoviesDataSource.getMovies(page: 1))
         .thenAnswer((_) async => mockResultMoviesEntity);
 
-    final result = await listOfMoviesRepositoryImpl.getMovies();
+    final result = await listOfMoviesRepositoryImpl.getMovies(page: 1);
 
     expect(result, equals(mockResultMoviesEntity));
-    verify(() => mockListOfMoviesDataSource.getMovies());
+    verify(() => mockListOfMoviesDataSource.getMovies(page: 1));
   });
 }

@@ -15,42 +15,54 @@ class HomeState extends ChangeNotifier {
   })  : _authState = authState,
         _listOfMoviesUseCase = listOfMoviesUseCase;
 
-  ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
+  final pageController = PageController(
+    initialPage: 0,
+    keepPage: true,
+  );
 
-  String get userEmail {
-    return _authState.user?.email ?? "";
+  ScrollController scrollController = ScrollController();
+
+  bool isLoading = false;
+
+  ResultMoviesEntity resultMoviesEntity = ResultMoviesEntity.empty();
+
+  List<MovieEntity> get movies => resultMoviesEntity.results;
+
+  int currentScreenIndex = 0;
+  int currentPage = 1;
+
+  String? get userPhotoURL => _authState.user?.photoURL;
+
+  void updateScreenIndex(int value) {
+    currentScreenIndex = value;
+    pageController.jumpToPage(value);
+    notifyListeners();
   }
 
-  String get userUid {
-    return _authState.user?.uid ?? "";
-  }
-
-  Future<void> getMovies() async {
+  Future<void> getMovies({required int page}) async {
     try {
-      final result = await _listOfMoviesUseCase.getMovies();
-
-      for (var movie in result.results) {
-        print("");
-        print(movie.originalTitle);
-        print(movie.releaseDate);
-        print(movie.overview);
-      }
+      isLoading = true;
+      var newMovies = await _listOfMoviesUseCase.getMovies(page: page);
+      movies.addAll(newMovies.results);
+      currentPage = page;
     } catch (error) {
-      print(error);
+      throw Exception();
+    } finally {
+      isLoading = false;
     }
+    notifyListeners();
   }
 
   Future<void> signOut() async {
-    isLoading.value = true;
+    isLoading = true;
     Future.delayed(const Duration(seconds: 3)).then((_) async {
       try {
         await _authState.signOut();
         await _authState.disconnect();
       } on ServerException catch (_) {}
     }).whenComplete(() {
-      isLoading.value = false;
+      isLoading = false;
       Modular.to.pushReplacementNamed("/login");
     });
-    notifyListeners();
   }
 }

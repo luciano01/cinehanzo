@@ -8,7 +8,7 @@ class ListOfMoviesRepositoryImpl implements ListOfMoviesRepository {
       : _listOfMoviesDataSource = listOfMoviesDataSource;
 
   @override
-  Future<ResultMoviesEntity> getMovies() async {
-    return await _listOfMoviesDataSource.getMovies();
+  Future<ResultMoviesEntity> getMovies({required int page}) async {
+    return await _listOfMoviesDataSource.getMovies(page: page);
   }
 }
