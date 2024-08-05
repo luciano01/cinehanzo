@@ -11,23 +11,15 @@ class LaunchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Modular.get<LaunchState>();
 
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: AppColors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Stack(
-              children: [
-                Text(
-                  AppConstants.labelCine,
-                  style: AppStyles.labelCine,
-                ),
-                Image.asset(
-                  AppImages.hanzoLogo,
-                  width: 250,
-                ),
-              ],
+            AppNameWidget(
+              fontSize: 28,
+              width: 250,
             ),
           ],
         ),
