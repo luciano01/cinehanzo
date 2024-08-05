@@ -176,7 +176,6 @@ class OnBoardingScreen extends StatelessWidget {
             AppColors.hanzo.withOpacity(0.1),
           ),
         ),
-        autoScrollDuration: 3000,
         showBackButton: true,
         initialPage: 0,
         onDone: () {
